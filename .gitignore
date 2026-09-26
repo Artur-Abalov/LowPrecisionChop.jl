@@ -1,0 +1,9 @@
+Manifest.toml
+docs/build/
+docs/Manifest.toml
+test/integration/*/Manifest.toml
+benchmark/Manifest.toml
+.vscode/
+*.jl.cov
+*.jl.*.cov
+*.jl.mem

@@ -1,0 +1,18 @@
+name = "LowPrecisionChop"
+uuid = "b3eee944-c02d-431a-a26d-36d2d3c755d8"
+authors = ["Artur Abalov"]
+version = "0.1.0"
+
+[deps]
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[weakdeps]
+MicroFloatingPoints = "6e0295d3-a2ae-4d9e-ab31-7b55fc0f4333"
+
+[extensions]
+LowPrecisionChopMicroFloatingPointsExt = "MicroFloatingPoints"
+
+[compat]
+julia = "1.10"
+MicroFloatingPoints = "2"
+Random = "1"

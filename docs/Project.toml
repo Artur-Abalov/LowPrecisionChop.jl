@@ -1,0 +1,8 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+LowPrecisionChop = "b3eee944-c02d-431a-a26d-36d2d3c755d8"
+MicroFloatingPoints = "6e0295d3-a2ae-4d9e-ab31-7b55fc0f4333"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[compat]
+Documenter = "1"
