@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>The LowFloat type · LowPrecisionChop.jl</title><meta name="title" content="The LowFloat type · LowPrecisionChop.jl"/><meta property="og:title" content="The LowFloat type · LowPrecisionChop.jl"/><meta property="twitter:title" content="The LowFloat type · LowPrecisionChop.jl"/><meta name="description" content="Documentation for LowPrecisionChop.jl."/><meta property="og:description" content="Documentation for LowPrecisionChop.jl."/><meta property="twitter:description" content="Documentation for LowPrecisionChop.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">LowPrecisionChop.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../getting_started/">Getting started</a></li><li><span class="tocitem">Guides</span><ul><li><a class="tocitem" href="../formats/">Formats</a></li><li><a class="tocitem" href="../rounding/">Rounding modes</a></li><li><a class="tocitem" href="../chop/">Value-level <code>chop</code></a></li><li class="is-active"><a class="tocitem" href>The <code>LowFloat</code> type</a><ul class="internal"><li><a class="tocitem" href="#Constructing-a-type"><span>Constructing a type</span></a></li><li><a class="tocitem" href="#Arithmetic"><span>Arithmetic</span></a></li><li><a class="tocitem" href="#Format-constants"><span>Format constants</span></a></li><li><a class="tocitem" href="#Promotion-never-escapes-to-Float64"><span>Promotion never escapes to <code>Float64</code></span></a></li><li><a class="tocitem" href="#Generic-algorithms"><span>Generic algorithms</span></a></li><li><a class="tocitem" href="#Stochastic-rounding-and-the-RNG"><span>Stochastic rounding and the RNG</span></a></li><li><a class="tocitem" href="#Bit-level-inspection"><span>Bit-level inspection</span></a></li><li><a class="tocitem" href="#Performance-notes"><span>Performance notes</span></a></li></ul></li><li><a class="tocitem" href="../accuracy/">Accuracy and double rounding</a></li></ul></li><li><span class="tocitem">Reference</span><ul><li><a class="tocitem" href="../spec/">Specification</a></li><li><a class="tocitem" href="../verification/">Verification</a></li><li><a class="tocitem" href="../integrations/">Integration findings</a></li><li><a class="tocitem" href="../comparison/">Comparison with related packages</a></li><li><a class="tocitem" href="../known_limitations/">Known limitations</a></li><li><a class="tocitem" href="../api/">API reference</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Guides</a></li><li class="is-active"><a href>The <code>LowFloat</code> type</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>The <code>LowFloat</code> type</a></li></ul></nav><div class="docs-right"><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="The-LowFloat-type"><a class="docs-heading-anchor" href="#The-LowFloat-type">The <code>LowFloat</code> type</a><a id="The-LowFloat-type-1"></a><a class="docs-heading-anchor-permalink" href="#The-LowFloat-type" title="Permalink"></a></h1><p><a href="../api/#LowPrecisionChop.LowFloat"><code>LowFloat</code></a> is a real number type that computes in low precision. Unlike <a href="../chop/"><code>chop</code></a>, which you call at chosen points, <code>LowFloat</code> rounds after <em>every</em> arithmetic operation — so you can hand an existing generic Julia algorithm a <code>Matrix{LowFloat}</code> and have the whole thing run at fp16, bfloat16, or whatever format you picked, without editing the algorithm.</p><h2 id="Constructing-a-type"><a class="docs-heading-anchor" href="#Constructing-a-type">Constructing a type</a><a id="Constructing-a-type-1"></a><a class="docs-heading-anchor-permalink" href="#Constructing-a-type" title="Permalink"></a></h2><p><code>LowFloat{t,emax,R,S}</code> has four parameters: significand bits <code>t</code>, maximum exponent <code>emax</code>, rounding-mode type <code>R</code>, and a <code>Bool</code> <code>S</code> for subnormal support. Build one with <a href="../api/#LowPrecisionChop.lowfloattype"><code>lowfloattype</code></a> rather than writing the parameters by hand:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop
+
+julia&gt; lowfloattype(Float16Format)
+LowFloat{11, 15, RoundingMode{:Nearest}, true}
+
+julia&gt; lowfloattype(BFloat16Format, RoundStochasticProportional)
+LowFloat{8, 127, RoundingMode{:StochasticProportional}, true}
+
+julia&gt; lowfloattype(Float16Format, RoundNearest, false)     # subnormals off
+LowFloat{11, 15, RoundingMode{:Nearest}, false}</code></pre><p>The signature is <code>lowfloattype(fmt, round = RoundNearest, subnormal = true)</code> — both extra arguments are positional.</p><p>Values are stored in a single <code>Float64</code> field, always on the target format&#39;s grid. Constructing from anything convertible to <code>Float64</code> rounds on the way in:</p><pre><code class="language-julia-repl hljs">julia&gt; T = lowfloattype(Float16Format);
+
+julia&gt; T(3.14159265358979)
+3.140625
+
+julia&gt; T(1//3)
+0.333251953125
+
+julia&gt; T(π)
+3.140625
+
+julia&gt; T(7)
+7.0</code></pre><p>There is no <code>explim</code> parameter. <code>LowFloat</code> values always behave as <code>explim = true</code>: a stored format that ignores its own exponent range is not a well-defined format, so that knob stays on <code>chop</code> only.</p><h2 id="Arithmetic"><a class="docs-heading-anchor" href="#Arithmetic">Arithmetic</a><a id="Arithmetic-1"></a><a class="docs-heading-anchor-permalink" href="#Arithmetic" title="Permalink"></a></h2><p>Every operation computes in <code>Float64</code> and rounds once, with the same kernel <code>chop</code> uses:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop
+
+julia&gt; BF16 = lowfloattype(BFloat16Format);
+
+julia&gt; a, b = BF16(1.0), BF16(3.0);
+
+julia&gt; a / b
+0.333984375
+
+julia&gt; sqrt(BF16(2.0))
+1.4140625
+
+julia&gt; BF16(1.0) + 2          # mixed with an Int -- stays BF16
+3.0</code></pre><p>Implemented directly: <code>+ - * / ^ sqrt abs abs2 inv</code>, unary minus, <code>floor ceil trunc round</code> (including <code>round(x, RoundUp)</code> and friends), <code>zero one</code>, comparisons (<code>== &lt; isless isequal iszero signbit sign</code>), <code>hash</code>, <code>Base.decompose</code>, <code>ldexp</code>, <code>exponent</code>, <code>nextfloat</code>, <code>prevfloat</code>, <code>rand</code>, and <code>bitstring</code>.</p><p>Working through Base&#39;s generic <code>AbstractFloat</code> fallbacks: <code>muladd</code>, <code>oneunit</code>, <code>copysign</code>, <code>min</code>, <code>max</code>, <code>isfinite</code>/<code>isnan</code>/<code>isinf</code>, <code>sum</code>, <code>prod</code>, <code>norm</code>, <code>hypot</code>, <code>cbrt</code>, and <code>round</code> with <code>RoundNearestTiesAway</code>/<code>RoundNearestTiesUp</code>/ <code>RoundFromZero</code>.</p><p><strong>Not supported, deliberately:</strong> <code>sin</code>, <code>cos</code>, <code>exp</code>, <code>log</code>, <code>tanh</code>, and every other transcendental function. The exactness argument that justifies &quot;compute in <code>Float64</code>, round once&quot; covers <code>+ - * / sqrt</code> and nothing else (<a href="../accuracy/">Accuracy</a>), so rather than shipping unverified implementations, <code>LowFloat</code> lets them <code>MethodError</code>. If you hit one, the answer is to reformulate — not to work around it by converting to <code>Float64</code> and back, which silently computes the function at full precision.</p><p><strong>Not supported, no decision behind it:</strong> <code>fma</code>, <code>rem</code>, <code>mod</code> and <code>div</code> raise <code>ErrorException(&quot;… not defined for LowFloat{…}&quot;)</code> from Base&#39;s own generic fallback. Nothing needs them in the code paths exercised so far; they would be straightforward to add in the same compute-then-round pattern.</p><p>Note that <code>hypot</code> and <code>cbrt</code> <em>do</em> work, because Base builds them from <code>sqrt</code> and <code>^</code> — and <code>^</code> carries no separate exactness proof. Treat results from those two as &quot;same pattern, no proof&quot;, like <code>^</code> itself.</p><h2 id="Format-constants"><a class="docs-heading-anchor" href="#Format-constants">Format constants</a><a id="Format-constants-1"></a><a class="docs-heading-anchor-permalink" href="#Format-constants" title="Permalink"></a></h2><p>The standard <code>AbstractFloat</code> queries all report the <em>format&#39;s</em> values, not <code>Float64</code>&#39;s:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop
+
+julia&gt; T = lowfloattype(Float16Format);
+
+julia&gt; precision(T)
+11
+
+julia&gt; Float64(eps(T)), Float64(floatmin(T)), Float64(floatmax(T))
+(0.0009765625, 6.103515625e-5, 65504.0)
+
+julia&gt; Float64(typemin(T)), Float64(typemax(T))
+(-Inf, Inf)</code></pre><p><code>nextfloat</code> and <code>prevfloat</code> step along the format&#39;s grid, including across binade boundaries and through the subnormal region:</p><pre><code class="language-julia-repl hljs">julia&gt; nextfloat(T(1.0))
+1.0009765625
+
+julia&gt; prevfloat(T(1.0))
+0.99951171875
+
+julia&gt; Float64(nextfloat(zero(T)))     # first subnormal
+5.960464477539063e-8
+
+julia&gt; nextfloat(floatmax(T))
+Inf</code></pre><p>Stepping toward zero from a power of two correctly uses the <em>finer</em> grid of the binade below, which is the case a naive implementation gets wrong: <code>prevfloat(T(2.0))</code> is <code>1.9990234375</code>, not <code>1.998046875</code>. On a tiny format the whole grid is short enough to walk:</p><pre><code class="language-julia-repl hljs">julia&gt; S = lowfloattype(Format(3, 3));       # t=3, emax=3
+
+julia&gt; v = zero(S); out = Float64[];
+
+julia&gt; for _ in 1:12
+           v = nextfloat(v)
+           push!(out, Float64(v))
+       end
+
+julia&gt; out
+12-element Vector{Float64}:
+ 0.0625
+ 0.125
+ 0.1875
+ 0.25
+ 0.3125
+ 0.375
+ 0.4375
+ 0.5
+ 0.625
+ 0.75
+ 0.875
+ 1.0</code></pre><h2 id="Promotion-never-escapes-to-Float64"><a class="docs-heading-anchor" href="#Promotion-never-escapes-to-Float64">Promotion never escapes to <code>Float64</code></a><a id="Promotion-never-escapes-to-Float64-1"></a><a class="docs-heading-anchor-permalink" href="#Promotion-never-escapes-to-Float64" title="Permalink"></a></h2><p>This is the single most important design decision in the type, and it is intentionally <em>inconvenient</em>:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop
+
+julia&gt; T = lowfloattype(Float16Format);
+
+julia&gt; promote_type(T, Float64)
+LowFloat{11, 15, RoundingMode{:Nearest}, true}</code></pre><p><code>promote_type(LowFloat, Float64)</code> resolves to the <code>LowFloat</code>, never to <code>Float64</code>. If it went the other way, <code>LinearAlgebra.generic_norm2</code> — which accumulates in <code>promote_type(Float64, T)</code> — would quietly compute <code>norm(::Vector{LowFloat})</code> at full double precision, and your &quot;low precision&quot; experiment would be measuring nothing. The same risk exists in OrdinaryDiffEq&#39;s adaptive-step controller.</p><p>So reductions stay in low precision:</p><pre><code class="language-julia-repl hljs">julia&gt; sum(T.([1.0, 2.0, 3.0])) isa T
+true</code></pre><p>Relatedly, <code>LowFloat</code> is deliberately <strong>not</strong> a <code>LinearAlgebra.BlasFloat</code> and does not match Krylov.jl&#39;s <code>FloatOrComplex</code> fast path:</p><pre><code class="language-julia-repl hljs">julia&gt; using LinearAlgebra
+
+julia&gt; T &lt;: LinearAlgebra.BLAS.BlasFloat
+false</code></pre><p>That single fact is what routes every stdlib call to its generic fallback instead of a BLAS <code>ccall</code>, and it is asserted directly in the test suite. A library that <em>would</em> bypass it will raise a <code>MethodError</code> rather than silently produce a <code>Float64</code> result.</p><h2 id="Generic-algorithms"><a class="docs-heading-anchor" href="#Generic-algorithms">Generic algorithms</a><a id="Generic-algorithms-1"></a><a class="docs-heading-anchor-permalink" href="#Generic-algorithms" title="Permalink"></a></h2><p>Because the interface is complete enough for the generic paths in <code>LinearAlgebra</code>, factorizations work directly:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop, LinearAlgebra
+
+julia&gt; BF16 = lowfloattype(BFloat16Format);
+
+julia&gt; A = BF16.([4.0 1.0; 1.0 3.0]);
+
+julia&gt; lu(A).U
+2×2 Matrix{LowFloat{8, 127, RoundingMode{:Nearest}, true}}:
+ 4.0  1.0
+ 0.0  2.75
+
+julia&gt; qr(A).R isa Matrix{BF16}
+true</code></pre><p>For fp16 specifically, a <code>LowFloat</code> LU factorization is <strong>bitwise identical</strong> to a native <code>Float16</code> LU — not merely close. That is the expected outcome, because fp16&#39;s precision is comfortably inside the double-rounding-safe region, and it reproduces Higham &amp; Pranesh&#39;s own Table 6.2 result. It is checked over 20 random 5×5 systems in <code>test/integration/linearalgebra/</code>, with zero mismatches.</p><p>Krylov.jl solvers, MultiPrecisionArrays.jl iterative refinement, OrdinaryDiffEq.jl integrators, and Flux.jl linear layers with Zygote autodiff all work too — with specific caveats per package documented in <a href="../integrations/">Integration findings</a>.</p><h2 id="Stochastic-rounding-and-the-RNG"><a class="docs-heading-anchor" href="#Stochastic-rounding-and-the-RNG">Stochastic rounding and the RNG</a><a id="Stochastic-rounding-and-the-RNG-1"></a><a class="docs-heading-anchor-permalink" href="#Stochastic-rounding-and-the-RNG" title="Permalink"></a></h2><p>A <code>LowFloat</code> whose <code>R</code> parameter is one of the stochastic modes rounds randomly on every operation. Since <code>a + b</code> has nowhere to put an <code>rng</code> argument, it draws from the ambient <code>Random.default_rng()</code>:</p><pre><code class="language-julia hljs">using LowPrecisionChop, Random
+
+S = lowfloattype(BFloat16Format, RoundStochasticProportional)
+
+Random.seed!(1234)
+r1 = my_computation(S)
+
+Random.seed!(1234)
+r2 = my_computation(S)      # identical to r1</code></pre><p>Consequences worth internalising:</p><ul><li>Reproducibility comes from seeding the default RNG, not from passing an RNG object. A local <code>Xoshiro</code> handed to your own <code>randn</code> calls does nothing for the arithmetic.</li><li>This is a global side effect on the task-local RNG stream. Unrelated code drawing from the same stream will interleave with it.</li><li>If you need an isolated RNG, use <a href="../chop/"><code>chop</code></a> with an explicit <code>rng</code> keyword instead of a stochastic <code>LowFloat</code>.</li></ul><p><code>rand</code> on a <code>LowFloat</code> type is a normal <code>rand</code> and <em>does</em> take an RNG:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop, Random
+
+julia&gt; T = lowfloattype(Float16Format);
+
+julia&gt; rand(Xoshiro(42), T) == rand(Xoshiro(42), T)
+true</code></pre><h2 id="Bit-level-inspection"><a class="docs-heading-anchor" href="#Bit-level-inspection">Bit-level inspection</a><a id="Bit-level-inspection-1"></a><a class="docs-heading-anchor-permalink" href="#Bit-level-inspection" title="Permalink"></a></h2><p><code>bitstring</code> shows the bits the value <em>would</em> have if stored natively in its own format — 1 sign bit, <code>ceil(log2(emax+1)) + 1</code> exponent bits with IEEE-style bias <code>emax</code>, then <code>t-1</code> significand bits:</p><pre><code class="language-julia-repl hljs">julia&gt; using LowPrecisionChop
+
+julia&gt; T = lowfloattype(Float16Format);
+
+julia&gt; bitstring(T(1.0))
+&quot;0011110000000000&quot;
+
+julia&gt; bitstring(T(-3.14159265358979))
+&quot;1100001001001000&quot;
+
+julia&gt; bitstring(lowfloattype(Float8E4M3Format)(1.5))
+&quot;00111100&quot;</code></pre><p>For every named preset this is exactly the standard IEEE layout — the fp16 case is checked against native <code>Float16</code> over 5000 random bit patterns. For a custom <code>emax</code> where <code>emax + 1</code> is not a power of two, the encoding is well-defined but non-standard, because no standard layout exists for such a format.</p><p><code>Base.decompose</code> and <code>hash</code> agree with the underlying <code>Float64</code>, so <code>LowFloat</code> works as a <code>Dict</code> or <code>Set</code> key.</p><h2 id="Performance-notes"><a class="docs-heading-anchor" href="#Performance-notes">Performance notes</a><a id="Performance-notes-1"></a><a class="docs-heading-anchor-permalink" href="#Performance-notes" title="Permalink"></a></h2><p><code>LowFloat</code> arithmetic is a <code>Float64</code> operation plus a handful of <code>ldexp</code> and <code>round</code> calls — no allocation, no dispatch on runtime values (<code>t</code> and <code>emax</code> are type parameters and constant-fold), and no global state outside the stochastic modes&#39; RNG draw. <code>benchmark/run.jl</code> records scalar and array timings; they are not asserted against thresholds.</p><p>What you will <em>not</em> get is BLAS throughput. Every matrix operation on <code>Matrix{LowFloat}</code> goes through Julia&#39;s generic loops, which is the point — a BLAS call would compute in <code>Float64</code> and defeat the simulation.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../chop/">« Value-level <code>chop</code></a><a class="docs-footer-nextpage" href="../accuracy/">Accuracy and double rounding »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Saturday 26 September 2026 08:24">Saturday 26 September 2026</span>. Using Julia version 1.13.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
