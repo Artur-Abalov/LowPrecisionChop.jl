@@ -145,12 +145,20 @@ Both are deliberate, and both are the only places behaviour differs.
 
 ## Repository and release status
 
-- **Nothing has been committed to git or pushed to GitHub.** The repository
-  exists locally only.
-- **`docs/make.jl` sets `remotes=nothing`** because there is no commit history
-  for Documenter to resolve source-link URLs from. Remove that line once the
-  repository has real history, so links resolve against GitHub automatically.
-- **CI workflows have never run.** `Documenter.yml` and `TagBot.yml` reference
-  a `DOCUMENTER_KEY` secret that does not exist yet.
-- **The package is not registered** in the Julia General registry. See
-  `docs/RELEASING.md` in the repository root for the full checklist.
+- **GitHub Pages must be enabled manually.** The `Documenter.yml` workflow
+  builds the docs and pushes them to the `gh-pages` branch successfully, but
+  publishing that branch is a repository setting, not something the workflow
+  can do: **Settings → Pages → Source: "Deploy from a branch" → branch
+  `gh-pages`, folder `/ (root)`**. Until that is set, every documentation URL
+  returns 404 even though the content is on the branch.
+- **There is no `stable` documentation URL yet.** Documenter only publishes
+  `stable/` once a release tag exists; right now the site has only `dev/`, and
+  the root URL redirects there. Links that hardcode `/stable/` will 404 until
+  the first tagged release. README links point at `/dev/` for this reason.
+- **The package is not registered** in the Julia General registry, and no
+  release has been tagged. See `docs/RELEASING.md` in the repository root for
+  the full checklist.
+- **`TagBot.yml` needs a `DOCUMENTER_KEY` secret** if you want tagged releases
+  to trigger a docs rebuild. The `Documenter.yml` push to `gh-pages` works
+  without it (the workflow grants `contents: write` and passes
+  `GITHUB_TOKEN`), so this only matters for the TagBot path.

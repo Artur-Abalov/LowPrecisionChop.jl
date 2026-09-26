@@ -1,6 +1,6 @@
 # LowPrecisionChop.jl
 
-[![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://Artur-Abalov.github.io/LowPrecisionChop.jl/)
+[![Documentation](https://img.shields.io/badge/docs-dev-blue.svg)](https://Artur-Abalov.github.io/LowPrecisionChop.jl/dev/)
 
 Simulate low-precision floating-point arithmetic in Julia — fp8, fp16,
 bfloat16, tf32, or any custom binary format — using hardware `Float64`
@@ -78,11 +78,11 @@ default warning into an error. Full treatment:
 | CPFloat (C, not Julia) | ✅ | ✅ | ✅ | N/A | ❌ |
 
 When to prefer each one:
-[comparison page](https://Artur-Abalov.github.io/LowPrecisionChop.jl/comparison/).
+[comparison page](https://Artur-Abalov.github.io/LowPrecisionChop.jl/dev/comparison/).
 
 ## Documentation
 
-[Full documentation](https://Artur-Abalov.github.io/LowPrecisionChop.jl/)
+[Full documentation](https://Artur-Abalov.github.io/LowPrecisionChop.jl/dev/)
 
 - [Getting started](docs/src/getting_started.md) — install to first
   computation.

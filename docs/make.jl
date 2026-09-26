@@ -12,13 +12,6 @@ makedocs(;
     modules=[LowPrecisionChop],
     authors="Artur Abalov",
     checkdocs=:exports,
-    # No commits exist in this repo yet (nothing has been committed --
-    # registration/pushing is the user's step, per docs/RELEASING.md), so
-    # Documenter has no HEAD commit to build source-link URLs from.
-    # `remotes=nothing` disables those links rather than forcing a commit
-    # just to make the docs build; once the repo has real history this can
-    # be removed so links resolve against GitHub automatically.
-    remotes=nothing,
     pages=[
         "Home" => "index.md",
         "Getting started" => "getting_started.md",
